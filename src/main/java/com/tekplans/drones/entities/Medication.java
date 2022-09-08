@@ -1,9 +1,13 @@
 package com.tekplans.drones.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Medication {
@@ -16,6 +20,16 @@ public class Medication {
 	private String code; //allowed only upper case letters, underscore and numbers
 	private byte[] image; //picture of the medication case
 	
+	@ManyToMany(mappedBy="medications")
+	private Set<Drone> drones = new HashSet<Drone>();
+	
+	public Set<Drone> getDrones() {
+		return drones;
+	}
+	
+	public void setDones(Set<Drone> drones) {
+		this.drones = drones;
+	}
 		
 	public Medication(String name, int weight, String code, byte[] image) {
 		super();

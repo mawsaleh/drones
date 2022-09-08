@@ -1,25 +1,51 @@
 package com.tekplans.drones.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Drone {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="droneModel")
+	private DroneModel droneModel; // Lightweight, Middleweight, Cruiserweight, Heavyweight
+	
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	@JoinTable(name="drone_medication",
+	joinColumns = { @JoinColumn(name="droneid") },
+	inverseJoinColumns = { @JoinColumn(name="medicationid") })
+	private Set<Medication> medications = new HashSet<Medication>();
+	public Set<Medication> getMedications() {
+		return medications;
+	}
+	public void setMedications(Set<Medication> medications) {
+		this.medications = medications;
+	}
+	
 	@Column(length=100)
 	private String serialNum; // 100 characters max
-	private String droneModel; // Lightweight, Middleweight, Cruiserweight, Heavyweight
+	
 	private int maxLoad; // 500gr max
 	private int batteryCapacity; // percentage;
 	public enum DroneState {IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING};
 	private DroneState currentState;
 	
-	public Drone(String serialNum, String droneModel, int maxLoad, int batteryCapacity, DroneState currentState) {
+	public Drone(String serialNum, DroneModel droneModel, int maxLoad, int batteryCapacity, DroneState currentState) {
 		super();
 		this.serialNum = serialNum;
 		this.droneModel = droneModel;
@@ -34,10 +60,10 @@ public class Drone {
 	public void setSerialNum(String serialNum) {
 		this.serialNum = serialNum;
 	}
-	public String getModel() {
+	public DroneModel getModel() {
 		return droneModel;
 	}
-	public void setModel(String droneModel) {
+	public void setModel(DroneModel droneModel) {
 		this.droneModel = droneModel;
 	}
 	public int getMaxLoad() {

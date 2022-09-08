@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class DroneModels {
+public class DroneModel{
 	@Id
 	private String droneModel;
-
-	public DroneModels(String droneModel) {
+	
+	
+	public DroneModel(String droneModel) {
 		super();
 		this.droneModel = droneModel;
 	}
