@@ -17,5 +17,10 @@ public class DroneController {
 	public Iterable<Drone> getDrones() {
 		return droneRepo.findAll();
 	}
+	
+//	@RequestMapping(value="/drones", method= {RequestMethod.POST})
+//	public Boolean registerDrone() {
+//		return droneRepo;
+//	}
 
 }

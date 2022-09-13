@@ -23,6 +23,18 @@ public class Medication {
 	@ManyToMany(mappedBy="medications")
 	private Set<Drone> drones = new HashSet<Drone>();
 	
+	public Medication() {
+		super();
+	}
+	
+	public Medication(String name, int weight, String code, byte[] image) {
+		super();
+		this.name = name;
+		this.weight = weight;
+		this.code = code;
+		this.image = image;
+	}
+	
 	public Set<Drone> getDrones() {
 		return drones;
 	}
@@ -31,13 +43,7 @@ public class Medication {
 		this.drones = drones;
 	}
 		
-	public Medication(String name, int weight, String code, byte[] image) {
-		super();
-		this.name = name;
-		this.weight = weight;
-		this.code = code;
-		this.image = image;
-	}
+	
 	public String getName() {
 		return name;
 	}

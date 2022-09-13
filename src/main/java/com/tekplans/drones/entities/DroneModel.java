@@ -8,7 +8,10 @@ public class DroneModel{
 	@Id
 	private String droneModel;
 	
-	
+	public DroneModel() {
+		super();
+	}
+		
 	public DroneModel(String droneModel) {
 		super();
 		this.droneModel = droneModel;

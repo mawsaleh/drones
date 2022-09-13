@@ -21,7 +21,7 @@ public class Drone {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="droneModel")
 	private DroneModel droneModel; // Lightweight, Middleweight, Cruiserweight, Heavyweight
 	
@@ -45,10 +45,23 @@ public class Drone {
 	public enum DroneState {IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING};
 	private DroneState currentState;
 	
+	public Drone() {
+		super();
+	}
+	
 	public Drone(String serialNum, DroneModel droneModel, int maxLoad, int batteryCapacity, DroneState currentState) {
 		super();
 		this.serialNum = serialNum;
 		this.droneModel = droneModel;
+		this.maxLoad = maxLoad;
+		this.batteryCapacity = batteryCapacity;
+		this.currentState = currentState;
+	}
+	
+	public Drone(String serialNum, String droneModel, int maxLoad, int batteryCapacity, DroneState currentState) {
+		super();
+		this.serialNum = serialNum;
+		this.droneModel = new DroneModel(droneModel);
 		this.maxLoad = maxLoad;
 		this.batteryCapacity = batteryCapacity;
 		this.currentState = currentState;
