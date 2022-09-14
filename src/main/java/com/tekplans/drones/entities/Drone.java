@@ -26,10 +26,11 @@ public class Drone {
 	private DroneModel droneModel; // Lightweight, Middleweight, Cruiserweight, Heavyweight
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
-	@JoinTable(name="drone_medication",
-	joinColumns = { @JoinColumn(name="droneid") },
-	inverseJoinColumns = { @JoinColumn(name="medicationid") })
+	@JoinTable(name="drone_medication", 
+		joinColumns = { @JoinColumn(name="droneid") },
+		inverseJoinColumns = { @JoinColumn(name="medicationid") })
 	private Set<Medication> medications = new HashSet<Medication>();
+	
 	public Set<Medication> getMedications() {
 		return medications;
 	}
